@@ -1,0 +1,25 @@
+name: Daily Weather Post
+
+on:
+  schedule:
+    - cron: '0 22 * * *'   # 日本時間7:00（UTC 22:00）
+  workflow_dispatch:
+
+jobs:
+  run-weather:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        run: python aiweather.py
+        env:
+          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
