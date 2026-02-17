@@ -14,7 +14,8 @@ jobs:
       X_API_SECRET: ${{ secrets.X_API_SECRET }}
       X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
       X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-    
+      TZ: Asia/Tokyo
+
     steps:
       - uses: actions/checkout@v4
 
@@ -28,10 +29,3 @@ jobs:
 
       - name: Run script
         run: python aiweather.py
-        env:
-          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_SECRET: ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          TZ: Asia/Tokyo
