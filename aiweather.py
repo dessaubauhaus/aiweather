@@ -33,7 +33,7 @@ def get_weather():
     return temp, desc
 
 
-def post_to_x(text: str):
+def post_to_x(text: str) -> str:
     url = "https://api.x.com/2/tweets"
 
     oauth = OAuth1(
@@ -56,6 +56,12 @@ def post_to_x(text: str):
     if response.status_code not in (200, 201):
         raise Exception(f"X API error: {response.status_code} {response.text}")
 
+    # ✅ 成功時：Tweet ID を返す
+    data = response.json()
+    tweet_id = data.get("data", {}).get("id")
+    print("Tweet ID:", tweet_id)
+    return tweet_id
+
 
 def main():
     temp, desc = get_weather()
@@ -65,8 +71,12 @@ def main():
 {desc}
 気温 {temp:.1f}℃"""
 
- # ✅ 成功時：Tweet ID をログに出す
-    data = response.json()
-    tweet_id = data.get("data", {}).get("id")
-    print("Tweet ID:", tweet_id)
+    print("Tweeting...")
+    print(tweet_text)
+
+    tweet_id = post_to_x(tweet_text)
     return tweet_id
+
+
+if __name__ == "__main__":
+    main()
