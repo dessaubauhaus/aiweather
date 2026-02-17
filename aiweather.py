@@ -65,11 +65,8 @@ def main():
 {desc}
 気温 {temp:.1f}℃"""
 
-    print("Tweeting...")
-    print(tweet_text)
-
-    post_to_x(tweet_text)
-
-
-if __name__ == "__main__":
-    main()
+ # ✅ 成功時：Tweet ID をログに出す
+    data = response.json()
+    tweet_id = data.get("data", {}).get("id")
+    print("Tweet ID:", tweet_id)
+    return tweet_id
